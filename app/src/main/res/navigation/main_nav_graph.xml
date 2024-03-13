@@ -8,6 +8,15 @@
     <fragment
         android:id="@+id/home_destination"
         android:name="com.example.netfilxcloneapp.presentation.screens.home.HomeScreenFragment"
-        android:label="fragment_home_screen_fragmaent"
-        tools:layout="@layout/fragment_home_screen" />
+        android:label="fragment_home_screen"
+        tools:layout="@layout/fragment_home_screen" >
+        <action
+            android:id="@+id/action_home_destination_to_detail_destination"
+            app:destination="@id/detail_destination" />
+    </fragment>
+    <fragment
+        android:id="@+id/detail_destination"
+        android:name="com.example.netfilxcloneapp.presentation.screens.detail.DetailScreenFragment"
+        android:label="fragment_detail_screen"
+        tools:layout="@layout/fragment_detail_screen" />
 </navigation>

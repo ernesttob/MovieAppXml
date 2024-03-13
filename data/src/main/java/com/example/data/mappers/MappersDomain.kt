@@ -1,8 +1,8 @@
 package com.example.data.mappers
 
-import com.example.data.models.MovieCloudModel
+import com.example.data.models.movie_list.MovieCloudModel
 import com.example.data.utils.Constants.POSTER_PATH_URL
-import com.example.domain.models.MovieDomainModel
+import com.example.domain.models.movie_list_domain.MovieDomainModel
 
 fun MovieCloudModel.toDomainModel() = MovieDomainModel(
     posterPath = "$POSTER_PATH_URL${this.posterPath}",

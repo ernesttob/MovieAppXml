@@ -1,5 +1,6 @@
-package com.example.data.models
+package com.example.data.models.movie_list
 
+import com.example.data.models.movie_list.MovieCloudModel
 import com.google.gson.annotations.SerializedName
 
 data class MovieResponseCloudModel(

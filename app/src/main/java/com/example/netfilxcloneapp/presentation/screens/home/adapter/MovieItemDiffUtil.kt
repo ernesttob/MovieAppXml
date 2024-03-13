@@ -1,7 +1,7 @@
 package com.example.netfilxcloneapp.presentation.screens.home.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.domain.models.MovieDomainModel
+import com.example.domain.models.movie_list_domain.MovieDomainModel
 
 class MovieItemDiffUtil : DiffUtil.ItemCallback<MovieDomainModel>() {
 

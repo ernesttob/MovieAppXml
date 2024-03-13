@@ -1,6 +1,6 @@
-package com.example.domain.use_cases
+package com.example.domain.use_cases.popular
 
-import com.example.domain.models.MovieDomainModel
+import com.example.domain.models.movie_list_domain.MovieDomainModel
 
 interface FetchPopularMovieUseCase {
     suspend operator fun invoke(

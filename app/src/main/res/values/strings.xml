@@ -7,4 +7,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="homescreen_txt_for_screen">HomeScreen</string>
+    <string name="latest_movies_txt">Latest Movies</string>
+    <string name="trending_today_txt">Trending Today</string>
 </resources>

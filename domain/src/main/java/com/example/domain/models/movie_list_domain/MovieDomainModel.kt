@@ -1,4 +1,4 @@
-package com.example.domain.models
+package com.example.domain.models.movie_list_domain
 
 data class MovieDomainModel(
     val posterPath: String?,

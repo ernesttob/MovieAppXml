@@ -42,8 +42,14 @@ android {
 
 dependencies {
 
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
+
     //Glide
     implementation ("com.github.bumptech.glide:glide:4.12.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+    implementation("androidx.fragment:fragment-ktx:1.5.6")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
 
     //Retrofit

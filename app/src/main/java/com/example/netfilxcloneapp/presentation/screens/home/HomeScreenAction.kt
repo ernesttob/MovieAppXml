@@ -1,11 +1,18 @@
 package com.example.netfilxcloneapp.presentation.screens.home
 
-import com.example.domain.models.MovieDomainModel
+import com.example.domain.models.movie_list_domain.MovieDomainModel
 
 sealed interface HomeScreenAction {
 
-    data class FetchPopularMovies(
-        val popularMovies: List<MovieDomainModel>
+    data class FetchAllMovies(
+        val popularMovies: List<MovieDomainModel>,
+        val nowPlayingMovies: List<MovieDomainModel>
     ): HomeScreenAction
+
+    data class NavigateToDetailsScreen(
+        val movieId: Int
+    ): HomeScreenAction
+
+    data object UpdateScreenHideShimmer: HomeScreenAction
 
 }

@@ -1,7 +1,7 @@
 package com.example.data.remote
 
-import com.example.data.models.MovieInfoCloudModel
-import com.example.data.models.MovieResponseCloudModel
+import com.example.data.models.movie_details.MovieDetailModel
+import com.example.data.models.movie_list.MovieResponseCloudModel
 import com.example.data.utils.Constants.API_KEY
 import com.example.data.utils.Constants.LANGUAGE_RU
 import com.example.data.utils.Constants.Movie.MOVIE_DETAILS
@@ -52,7 +52,7 @@ interface MovieService {
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = LANGUAGE_RU,
         @Query("page") page: Int? = 1,
-    ): Response<MovieInfoCloudModel>
+    ): Response<MovieDetailModel>
 
     @GET(SIMILAR)
     suspend fun getSimilarMovies(
