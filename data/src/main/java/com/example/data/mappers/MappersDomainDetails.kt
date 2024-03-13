@@ -5,6 +5,7 @@ import com.example.data.models.movie_details.MovieDetailModel
 import com.example.data.models.movie_details.ProductionCompany
 import com.example.data.models.movie_details.ProductionCountry
 import com.example.data.models.movie_details.SpokenLanguage
+import com.example.data.utils.Constants
 import com.example.domain.models.movie_details_domain.GenreDomain
 import com.example.domain.models.movie_details_domain.MovieDetailModelDomain
 import com.example.domain.models.movie_details_domain.ProductionCompanyDomain
@@ -34,7 +35,7 @@ fun SpokenLanguage.toDomainModel() = SpokenLanguageDomain(
 
 fun MovieDetailModel.toDomainModel() = MovieDetailModelDomain(
     adult = adult,
-    backdropPath = backdropPath,
+    backdropPath = "${Constants.POSTER_PATH_URL}${this.backdropPath}",
     budget = budget,
     genres = genres.map { it.toDomainModel() },
     homepage = homepage,
@@ -44,7 +45,7 @@ fun MovieDetailModel.toDomainModel() = MovieDetailModelDomain(
     originalTitle = originalTitle,
     overview = overview,
     popularity = popularity,
-    posterPath = posterPath,
+    posterPath = "${Constants.POSTER_PATH_URL}${this.posterPath}",
     productionCompanies = productionCompanies.map { it.toDomainModel() },
     productionCountries = productionCountries.map { it.toDomainModel() },
     releaseDate = releaseDate,

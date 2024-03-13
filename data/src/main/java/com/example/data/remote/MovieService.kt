@@ -3,6 +3,7 @@ package com.example.data.remote
 import com.example.data.models.movie_details.MovieDetailModel
 import com.example.data.models.movie_list.MovieResponseCloudModel
 import com.example.data.utils.Constants.API_KEY
+import com.example.data.utils.Constants.LANGUAGE_EN
 import com.example.data.utils.Constants.LANGUAGE_RU
 import com.example.data.utils.Constants.Movie.MOVIE_DETAILS
 import com.example.data.utils.Constants.Movie.NOW_PLAYING
@@ -22,27 +23,27 @@ interface MovieService {
     suspend fun getPopularMovies(
         @Query("api_key") apiKey: String = API_KEY,
         @Query("page") page: Int,
-        @Query("language") lang: String = LANGUAGE_RU,
+        @Query("language") lang: String = LANGUAGE_EN,
     ): Response<MovieResponseCloudModel>
 
     @GET(TOP_RATED)
     suspend fun getTopRatedMovies(
         @Query("api_key") apiKey: String = API_KEY,
-        @Query("language") language: String = "ru",
+        @Query("language") language: String = LANGUAGE_EN,
         @Query("page") page: Int,
     ): Response<MovieResponseCloudModel>
 
     @GET(UPCOMING)
     suspend fun getUpcomingMovies(
         @Query("api_key") apiKey: String = API_KEY,
-        @Query("language") language: String = "ru",
+        @Query("language") language: String = LANGUAGE_EN,
         @Query("page") page: Int?,
     ): Response<MovieResponseCloudModel>
 
     @GET(NOW_PLAYING)
     suspend fun getNowPlayingMovies(
         @Query("api_key") apiKey: String = API_KEY,
-        @Query("language") language: String = "ru",
+        @Query("language") language: String = LANGUAGE_EN,
         @Query("page") page: Int?,
     ): Response<MovieResponseCloudModel>
 
@@ -50,7 +51,7 @@ interface MovieService {
     suspend fun getMovieDetails(
         @Path("movie_id") id: Int,
         @Query("api_key") apiKey: String = API_KEY,
-        @Query("language") language: String = LANGUAGE_RU,
+        @Query("language") language: String = LANGUAGE_EN,
         @Query("page") page: Int? = 1,
     ): Response<MovieDetailModel>
 
@@ -58,13 +59,13 @@ interface MovieService {
     suspend fun getSimilarMovies(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = API_KEY,
-        @Query("language") language: String = LANGUAGE_RU,
+        @Query("language") language: String = LANGUAGE_EN,
     ): Response<MovieResponseCloudModel>
 
     @GET(RECOMMENDATIONS)
     suspend fun getRecommendMovies(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = API_KEY,
-        @Query("language") language: String = LANGUAGE_RU,
+        @Query("language") language: String = LANGUAGE_EN,
     ): Response<MovieResponseCloudModel>
 }

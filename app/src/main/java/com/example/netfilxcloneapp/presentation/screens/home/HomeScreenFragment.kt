@@ -82,8 +82,8 @@ class HomeScreenFragment : Fragment(), ItemOnClickListeners {
     }
 
     private fun setupTrendingTodayMoviesUi() = with(binding.trendingTodayMoviesBlock) {
-        moviesRv.layoutManager = PeekingLinearLayoutManager(requireContext())
-        moviesRv.adapter = trendingTodayAdapter
+        moviesTrendingTodayRv.adapter = trendingTodayAdapter
+
     }
 
     private fun submitListAdapters(action: HomeScreenAction.FetchAllMovies) {

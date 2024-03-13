@@ -57,7 +57,7 @@
 
             <include
                 android:id="@+id/trendingTodayMoviesBlock"
-                layout="@layout/movies_list_block" />
+                layout="@layout/movies_list_block_trending_today" />
 
         </LinearLayout>
 
