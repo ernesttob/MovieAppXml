@@ -1,10 +1,12 @@
 package com.example.data.remote
 
 import com.example.data.models.movie_details.MovieDetailModel
+import com.example.data.models.movie_details.movie_cast.MovieCastModel
 import com.example.data.models.movie_list.MovieResponseCloudModel
 import com.example.data.utils.Constants.API_KEY
 import com.example.data.utils.Constants.LANGUAGE_EN
 import com.example.data.utils.Constants.LANGUAGE_RU
+import com.example.data.utils.Constants.Movie.CAST_FOR_DETAIL_SCREEN
 import com.example.data.utils.Constants.Movie.MOVIE_DETAILS
 import com.example.data.utils.Constants.Movie.NOW_PLAYING
 import com.example.data.utils.Constants.Movie.POPULAR
@@ -68,4 +70,11 @@ interface MovieService {
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = LANGUAGE_EN,
     ): Response<MovieResponseCloudModel>
+
+    @GET(CAST_FOR_DETAIL_SCREEN)
+    suspend fun getCastForDetail(
+        @Path("movie_id") movieId: Int,
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("language") language: String = LANGUAGE_EN,
+    ): Response<MovieCastModel>
 }

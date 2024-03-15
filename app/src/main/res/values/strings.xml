@@ -9,4 +9,8 @@
     <string name="homescreen_txt_for_screen">HomeScreen</string>
     <string name="latest_movies_txt">Latest Movies</string>
     <string name="trending_today_txt">Trending Today</string>
+    <string name="no_trailer">No Trailer !</string>
+    <string name="trailer">Trailer</string>
+    <string name="cast">Cast</string>
+    <string name="More">More</string>
 </resources>

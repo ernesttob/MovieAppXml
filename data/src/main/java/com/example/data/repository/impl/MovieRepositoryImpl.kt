@@ -1,10 +1,12 @@
 package com.example.data.repository.impl
 
+import android.util.Log
 import com.example.data.mappers.toDomainModel
 import com.example.data.models.movie_details.MovieDetailModel
 import com.example.data.models.movie_list.MovieResponseCloudModel
 import com.example.data.remote.MovieService
 import com.example.domain.models.movie_details_domain.MovieDetailModelDomain
+import com.example.domain.models.movie_details_domain.movie_cast.MovieCastModelDomain
 import com.example.domain.models.movie_list_domain.MovieDomainModel
 import com.example.domain.repository.MovieRepository
 import kotlinx.coroutines.CancellationException
@@ -14,6 +16,19 @@ import javax.inject.Inject
 class MovieRepositoryImpl @Inject constructor(
     private val service: MovieService
 ) : MovieRepository {
+    override suspend fun fetchCastDetailMovie(movieId: Int): Result<MovieCastModelDomain> {
+        return try {
+            val response = service.getCastForDetail(movieId)
+            if (response.isSuccessful) {
+                val movieCastDetail = response.body()?.toDomainModel() ?: throw NullPointerException("Movie details are null")
+                Result.success(movieCastDetail)
+            } else {
+                Result.failure(Throwable("Failed to fetch movie details"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 
     override suspend fun fetchPopularMovie(
         page: Int

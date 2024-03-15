@@ -4,81 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context=".presentation.screens.detail.DetailScreenFragment">
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:overScrollMode="never"
+        android:scrollbars="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/moviePosterForDetail"
-                    android:layout_width="match_parent"
-                    android:layout_height="490dp"
-                    android:foreground="@drawable/gradient_overlay"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/backIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
-                    android:src="@drawable/back_button"
-                    app:layout_constraintStart_toStartOf="@id/moviePosterForDetail"
-                    app:layout_constraintTop_toTopOf="@id/moviePosterForDetail" />
 
                 <TextView
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center|top"
-                    android:layout_marginBottom="8dp"
-                    android:textSize="32sp"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/moviePosterForDetail"
-                    app:layout_constraintStart_toStartOf="@+id/moviePosterForDetail"
-                    app:layout_constraintTop_toBottomOf="@+id/backIcon" />
-
-                <TextView
-                    android:id="@+id/movieDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="12dp"
-                    android:layout_marginHorizontal="4dp"
+                    android:layout_gravity="center_horizontal"
                     android:gravity="center"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/moviePosterForDetail"
-                    app:layout_constraintStart_toStartOf="@+id/moviePosterForDetail"
-                    app:layout_constraintTop_toBottomOf="@id/moviePosterForDetail" />
+                    android:textSize="24sp"
+                    android:textStyle="bold" />
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/horizontalPager"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/movieDescription" />
+            <ImageView
+                android:id="@+id/moviePosterForDetail"
+                android:layout_width="match_parent"
+                android:layout_height="490dp"
+                android:foreground="@drawable/gradient_overlay"
+                android:scaleType="centerCrop"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/movieDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:layout_marginHorizontal="4dp"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <include
+                android:id="@+id/tab_layout_detail_screen"
+                layout="@layout/tab_layout"/>
 
         </LinearLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

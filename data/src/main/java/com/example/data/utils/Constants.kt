@@ -19,6 +19,7 @@ object Constants {
         const val RECOMMENDATIONS = "movie/{movie_id}/recommendations"
         const val RATE_MOVIE = "movie/{movie_id}/rating"
         const val DELETE_RATE = "movie/{movie_id}/rating"
+        const val CAST_FOR_DETAIL_SCREEN = "movie/{movie_id}/credits"
     }
 
     object TVSerials {
