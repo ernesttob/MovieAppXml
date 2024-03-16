@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -17,10 +16,10 @@ import com.example.netfilxcloneapp.databinding.FragmentDetailScreenBinding
 import com.example.netfilxcloneapp.databinding.FragmentMoreDetailBinding
 import com.example.netfilxcloneapp.databinding.FragmentTrailerDetailBinding
 import com.example.netfilxcloneapp.presentation.screens.detail.DetailScreenAction.FetchDetailMovie
+import com.example.netfilxcloneapp.presentation.screens.detail.pager.adapter.ViewPagerAdapter
 import com.example.netfilxcloneapp.presentation.screens.detail.pager.cast.CastDetailFragment
 import com.example.netfilxcloneapp.presentation.screens.detail.pager.more.MoreDetailFragment
 import com.example.netfilxcloneapp.presentation.screens.detail.pager.trailer.TrailerDetailFragment
-import com.example.netfilxcloneapp.presentation.screens.detail.pager.adapter.ViewPagerAdapter
 import com.example.netfilxcloneapp.presentation.screens.home.HomeScreenFragment.Companion.DETAIL_ID_ARG
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -59,8 +58,8 @@ class DetailScreenFragment : Fragment() {
         val movieIdArg = arguments?.getInt(DETAIL_ID_ARG)
         sendUiEvents(movieIdArg)
         setupDataListeners()
-        horizontalPager()
-        Log.d("TTT","$movieIdArg")
+        horizontalPager(movieIdArg)
+        Log.d("TTT", "$movieIdArg")
     }
 
     private fun setupDataListeners() {
@@ -84,7 +83,6 @@ class DetailScreenFragment : Fragment() {
 
     @SuppressLint("ResourceAsColor")
     private fun fetchDetailMovie(action: FetchDetailMovie) {
-        bundleOf(CAST_ID_ARG to action.detailMovie.id)
         Glide
             .with(requireContext())
             .load(action.detailMovie.posterPath)
@@ -94,12 +92,19 @@ class DetailScreenFragment : Fragment() {
         binding.movieDescription.text = action.detailMovie.overview
     }
 
-    private fun horizontalPager() {
+    private fun horizontalPager(movieId: Int?) {
         val tabLayout: TabLayout = binding.tabLayoutDetailScreen.tabLayoutDetail
         val viewPager: ViewPager2 = binding.tabLayoutDetailScreen.viewPager
         val adapter = ViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
         adapter.addFragment(TrailerDetailFragment(), "Trailer")
-        adapter.addFragment(CastDetailFragment(), "Cast")
+
+        val castDetailFragment = CastDetailFragment().apply {
+            arguments = Bundle().apply {
+                putInt(DETAIL_ID_ARG, movieId!!)
+            }
+        }
+        adapter.addFragment(castDetailFragment, "Cast")
+
         adapter.addFragment(MoreDetailFragment(), "More")
         viewPager.adapter = adapter
 
@@ -114,17 +119,16 @@ class DetailScreenFragment : Fragment() {
                     0 -> {
                         trailer
                     }
+
                     1 -> {
                         cast
                     }
+
                     2 -> {
                         more
                     }
                 }
             }
         })
-    }
-    companion object {
-        const val CAST_ID_ARG = "CAST_ID_ARG"
     }
 }
