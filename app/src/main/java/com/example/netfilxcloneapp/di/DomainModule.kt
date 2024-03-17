@@ -13,6 +13,8 @@ import com.example.domain.use_cases.popular.FetchPopularMovieUseCase
 import com.example.domain.use_cases.popular.FetchPopularMovieUseCaseImpl
 import com.example.domain.use_cases.top_rated.FetchTopRatedMovieUseCase
 import com.example.domain.use_cases.top_rated.FetchTopRatedMovieUseCaseImpl
+import com.example.domain.use_cases.upcoming.FetchUpcomingMoviesUseCase
+import com.example.domain.use_cases.upcoming.FetchUpcomingMoviesUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,4 +53,9 @@ class DomainModule {
     fun providesFetchTopRatedMovieUseCase(
         repository: MovieRepository
     ): FetchTopRatedMovieUseCase = FetchTopRatedMovieUseCaseImpl(repository)
+
+    @Provides
+    fun providesFetchUpcomingMoviesUseCaseI(
+        repository: MovieRepository
+    ): FetchUpcomingMoviesUseCase = FetchUpcomingMoviesUseCaseImpl(repository)
 }

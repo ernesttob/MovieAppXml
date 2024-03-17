@@ -7,7 +7,8 @@ sealed interface HomeScreenAction {
     data class FetchAllMovies(
         val popularMovies: List<MovieDomainModel>,
         val nowPlayingMovies: List<MovieDomainModel>,
-        val topRatedMovies: List<MovieDomainModel>
+        val topRatedMovies: List<MovieDomainModel>,
+        val upcomingMovies: List<MovieDomainModel>
     ): HomeScreenAction
 
     data class NavigateToDetailsScreen(

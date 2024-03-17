@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.use_cases.now_playing.FetchNowPlayingMovieUseCase
 import com.example.domain.use_cases.popular.FetchPopularMovieUseCase
 import com.example.domain.use_cases.top_rated.FetchTopRatedMovieUseCase
+import com.example.domain.use_cases.upcoming.FetchUpcomingMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -17,7 +18,8 @@ import javax.inject.Inject
 class HomeScreenViewModel @Inject constructor(
     private val fetchPopularMoviesUseCase: FetchPopularMovieUseCase,
     private val fetchNowPlayingMoviesUseCase: FetchNowPlayingMovieUseCase,
-    private val fetchTopRatedMovieUseCase: FetchTopRatedMovieUseCase
+    private val fetchTopRatedMovieUseCase: FetchTopRatedMovieUseCase,
+    private val fetchUpcomingMoviesUseCase: FetchUpcomingMoviesUseCase
 ) : ViewModel() {
 
     private val _uiAction: MutableSharedFlow<HomeScreenAction> = MutableSharedFlow()
@@ -47,17 +49,22 @@ class HomeScreenViewModel @Inject constructor(
             val topRatedResponseDeferred = async {
                 fetchTopRatedMovieUseCase(page = 1)
             }
+            val upcomingResponseDeferred = async {
+                fetchUpcomingMoviesUseCase(page = 1)
+            }
 
+            val upcomingMovies = upcomingResponseDeferred.await()
             val topRatedMovies = topRatedResponseDeferred.await()
             val popularMovies = popularResponseDeferred.await()
             val nowPlayingMovies = nowPLayingResponseDeferred.await()
 
-            if (popularMovies.isSuccess && nowPlayingMovies.isSuccess && topRatedMovies.isSuccess) {
+            if (popularMovies.isSuccess && nowPlayingMovies.isSuccess && topRatedMovies.isSuccess && upcomingMovies.isSuccess) {
                 _uiAction.emit(
                     HomeScreenAction.FetchAllMovies(
                         popularMovies = popularMovies.getOrNull().orEmpty(),
                         nowPlayingMovies = nowPlayingMovies.getOrNull().orEmpty(),
-                        topRatedMovies = topRatedMovies.getOrNull().orEmpty()
+                        topRatedMovies = topRatedMovies.getOrNull().orEmpty(),
+                        upcomingMovies = upcomingMovies.getOrNull().orEmpty()
                     )
                 )
                 _uiAction.emit(HomeScreenAction.UpdateScreenHideShimmer)

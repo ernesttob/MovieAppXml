@@ -90,13 +90,16 @@ class HomeScreenFragment : Fragment(), ItemOnClickListeners {
     private fun setupTrendingTodayMoviesUi() = with(binding) {
         trendingTodayMoviesBlock.moviesTrendingTodayRv.adapter = trendingTodayAdapter
         topRatedMoviesBlock.moviesTrendingTodayRv.adapter = topRatedAdapter
-        topRatedMoviesBlock.listHeader
+        topRatedMoviesBlock.listHeader.text = "Top Rated"
+        upcomingMoviesBlock.moviesTrendingTodayRv.adapter = upcomingAdapter
+        upcomingMoviesBlock.listHeader.text = "Upcoming Movies"
     }
 
     private fun submitListAdapters(action: HomeScreenAction.FetchAllMovies) {
         latestAdapter.submitList(action.popularMovies)
         trendingTodayAdapter.submitList(action.nowPlayingMovies)
         topRatedAdapter.submitList(action.topRatedMovies)
+        upcomingAdapter.submitList(action.upcomingMovies)
     }
 
     private fun setupUiWhenUpdateScreenAction() = with(binding) {
