@@ -36,18 +36,6 @@ class DetailScreenFragment : Fragment() {
 
     private val viewModel: DetailScreenViewModel by viewModels()
 
-    private val trailer: FragmentTrailerDetailBinding by lazy {
-        FragmentTrailerDetailBinding.inflate(layoutInflater)
-    }
-
-    private val cast: FragmentCastDetailBinding by lazy {
-        FragmentCastDetailBinding.inflate(layoutInflater)
-    }
-
-    private val more: FragmentMoreDetailBinding by lazy {
-        FragmentMoreDetailBinding.inflate(layoutInflater)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -59,7 +47,6 @@ class DetailScreenFragment : Fragment() {
         sendUiEvents(movieIdArg)
         setupDataListeners()
         horizontalPager(movieIdArg)
-        Log.d("TTT", "$movieIdArg")
     }
 
     private fun setupDataListeners() {
@@ -96,11 +83,12 @@ class DetailScreenFragment : Fragment() {
         val tabLayout: TabLayout = binding.tabLayoutDetailScreen.tabLayoutDetail
         val viewPager: ViewPager2 = binding.tabLayoutDetailScreen.viewPager
         val adapter = ViewPagerAdapter(requireActivity().supportFragmentManager, lifecycle)
+
         adapter.addFragment(TrailerDetailFragment(), "Trailer")
 
         val castDetailFragment = CastDetailFragment().apply {
             arguments = Bundle().apply {
-                putInt(DETAIL_ID_ARG, movieId!!)
+                putInt(DETAIL_ID_ARG, movieId ?: 0)
             }
         }
         adapter.addFragment(castDetailFragment, "Cast")
@@ -115,18 +103,8 @@ class DetailScreenFragment : Fragment() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                when (position) {
-                    0 -> {
-                        trailer
-                    }
-
-                    1 -> {
-                        cast
-                    }
-
-                    2 -> {
-                        more
-                    }
+                viewPager.post {
+                    viewPager.setCurrentItem(position, true)
                 }
             }
         })

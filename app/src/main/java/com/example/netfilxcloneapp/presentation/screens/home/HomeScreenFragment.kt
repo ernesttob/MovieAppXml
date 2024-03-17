@@ -37,6 +37,13 @@ class HomeScreenFragment : Fragment(), ItemOnClickListeners {
     private val trendingTodayAdapter: MoviesItemAdapter by lazy {
         MoviesItemAdapter(MovieItemTypes.TRENDING, this)
     }
+    private val topRatedAdapter: MoviesItemAdapter by lazy {
+        MoviesItemAdapter(MovieItemTypes.TOP_RATED, this)
+    }
+    private val upcomingAdapter: MoviesItemAdapter by lazy {
+        MoviesItemAdapter(MovieItemTypes.UPCOMING, this)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -78,17 +85,18 @@ class HomeScreenFragment : Fragment(), ItemOnClickListeners {
     private fun setupLatestMoviesUi() = with(binding.latestMoviesBlock) {
         moviesRv.layoutManager = PeekingLinearLayoutManager(requireContext())
         moviesRv.adapter = latestAdapter
-
     }
 
-    private fun setupTrendingTodayMoviesUi() = with(binding.trendingTodayMoviesBlock) {
-        moviesTrendingTodayRv.adapter = trendingTodayAdapter
-
+    private fun setupTrendingTodayMoviesUi() = with(binding) {
+        trendingTodayMoviesBlock.moviesTrendingTodayRv.adapter = trendingTodayAdapter
+        topRatedMoviesBlock.moviesTrendingTodayRv.adapter = topRatedAdapter
+        topRatedMoviesBlock.listHeader
     }
 
     private fun submitListAdapters(action: HomeScreenAction.FetchAllMovies) {
         latestAdapter.submitList(action.popularMovies)
         trendingTodayAdapter.submitList(action.nowPlayingMovies)
+        topRatedAdapter.submitList(action.topRatedMovies)
     }
 
     private fun setupUiWhenUpdateScreenAction() = with(binding) {

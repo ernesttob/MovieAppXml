@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.netfilxcloneapp.databinding.FragmentCastDetailBinding
+import com.example.netfilxcloneapp.presentation.screens.detail.pager.adapter.CastAdapter
 import com.example.netfilxcloneapp.presentation.screens.home.HomeScreenFragment.Companion.DETAIL_ID_ARG
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -23,6 +25,10 @@ class CastDetailFragment : Fragment() {
 
     private val viewModel: CastFragmentViewModel by viewModels()
 
+    private val adapter: CastAdapter by lazy {
+        CastAdapter()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,7 +40,6 @@ class CastDetailFragment : Fragment() {
         sendUiEvents(movieId)
         setupDataListeners()
         Log.d("Eerme","$movieId")
-
     }
 
     private fun setupDataListeners() {
@@ -53,10 +58,12 @@ class CastDetailFragment : Fragment() {
                 event = CastEvent.OnFetchCastDetails,
                 movieId = movieId
             )
-        }else 0
+        }
     }
 
     private fun fetchCastDetail(action: CastAction.FetchCastDetail){
+        adapter.submitList(action.castDetail.cast)
+        binding.castBlockDetail.castRv.adapter = adapter
     }
 
 }

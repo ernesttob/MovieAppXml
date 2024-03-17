@@ -3,6 +3,7 @@ package com.example.data.remote
 import com.example.data.models.movie_details.MovieDetailModel
 import com.example.data.models.movie_details.movie_cast.MovieCastModel
 import com.example.data.models.movie_list.MovieResponseCloudModel
+import com.example.data.models.person_models.PersonModels
 import com.example.data.utils.Constants.API_KEY
 import com.example.data.utils.Constants.LANGUAGE_EN
 import com.example.data.utils.Constants.LANGUAGE_RU
@@ -14,6 +15,7 @@ import com.example.data.utils.Constants.Movie.RECOMMENDATIONS
 import com.example.data.utils.Constants.Movie.SIMILAR
 import com.example.data.utils.Constants.Movie.TOP_RATED
 import com.example.data.utils.Constants.Movie.UPCOMING
+import com.example.data.utils.Constants.Person.PERSON_POPULAR
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -57,24 +59,17 @@ interface MovieService {
         @Query("page") page: Int? = 1,
     ): Response<MovieDetailModel>
 
-    @GET(SIMILAR)
-    suspend fun getSimilarMovies(
-        @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String = API_KEY,
-        @Query("language") language: String = LANGUAGE_EN,
-    ): Response<MovieResponseCloudModel>
-
-    @GET(RECOMMENDATIONS)
-    suspend fun getRecommendMovies(
-        @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String = API_KEY,
-        @Query("language") language: String = LANGUAGE_EN,
-    ): Response<MovieResponseCloudModel>
-
     @GET(CAST_FOR_DETAIL_SCREEN)
     suspend fun getCastForDetail(
         @Path("movie_id") movieId: Int,
         @Query("api_key") apiKey: String = API_KEY,
         @Query("language") language: String = LANGUAGE_EN,
     ): Response<MovieCastModel>
+
+    @GET(PERSON_POPULAR)
+    suspend fun getPopularPerson(
+        @Query("api_key") apiKey: String = API_KEY,
+        @Query("language") language: String = LANGUAGE_EN,
+        @Query("page") page: Int?,
+    ): Response<PersonModels>
 }

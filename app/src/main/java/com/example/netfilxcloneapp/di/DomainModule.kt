@@ -7,8 +7,12 @@ import com.example.domain.use_cases.details.cast_detail.FetchCastDetailsMovieUse
 import com.example.domain.use_cases.details.cast_detail.FetchCastDetailsMovieUseCaseImpl
 import com.example.domain.use_cases.now_playing.FetchNowPlayingMovieUseCase
 import com.example.domain.use_cases.now_playing.FetchNowPlayingMovieUseCaseImpl
+import com.example.domain.use_cases.person.FetchPersonActorsMovie
+import com.example.domain.use_cases.person.FetchPersonActorsMovieImpl
 import com.example.domain.use_cases.popular.FetchPopularMovieUseCase
 import com.example.domain.use_cases.popular.FetchPopularMovieUseCaseImpl
+import com.example.domain.use_cases.top_rated.FetchTopRatedMovieUseCase
+import com.example.domain.use_cases.top_rated.FetchTopRatedMovieUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,4 +41,14 @@ class DomainModule {
     fun providesFetchCastMovieDetailUseCase(
         repository: MovieRepository
     ): FetchCastDetailsMovieUseCase = FetchCastDetailsMovieUseCaseImpl(repository)
+
+    @Provides
+    fun providesFetchPopularActorsUseCase(
+        repository: MovieRepository
+    ): FetchPersonActorsMovie = FetchPersonActorsMovieImpl(repository)
+
+    @Provides
+    fun providesFetchTopRatedMovieUseCase(
+        repository: MovieRepository
+    ): FetchTopRatedMovieUseCase = FetchTopRatedMovieUseCaseImpl(repository)
 }

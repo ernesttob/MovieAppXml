@@ -16,4 +16,21 @@ data class CastDomain(
     val originalName: String,
     val popularity: Double,
     val profilePath: String
-): Serializable
+) : Serializable {
+    companion object {
+        val unknown = CastDomain(
+            adult = false,
+            castId = 0,
+            character = "",
+            creditId ="",
+            gender = 0,
+            id = 0,
+            knownForDepartment = "",
+            name = "",
+            order = 0,
+            originalName = "",
+            popularity = 0.0,
+            profilePath = "",
+        )
+    }
+}

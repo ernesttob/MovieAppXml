@@ -12,6 +12,7 @@
         android:layout_margin="12dp"
         android:fontFamily="@font/alegreya_sans_sc_medium"
         android:text="@string/trending_today_txt"
+        android:textStyle="bold"
         android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

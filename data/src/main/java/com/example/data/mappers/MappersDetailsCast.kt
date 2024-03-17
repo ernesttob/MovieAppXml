@@ -3,6 +3,7 @@ package com.example.data.mappers
 import com.example.data.models.movie_details.movie_cast.Cast
 import com.example.data.models.movie_details.movie_cast.Crew
 import com.example.data.models.movie_details.movie_cast.MovieCastModel
+import com.example.data.utils.Constants
 import com.example.domain.models.movie_details_domain.movie_cast.CastDomain
 import com.example.domain.models.movie_details_domain.movie_cast.CrewDomain
 import com.example.domain.models.movie_details_domain.movie_cast.MovieCastModelDomain
@@ -19,7 +20,7 @@ fun Cast.toDomainModel() = CastDomain(
     order = order,
     originalName = originalName,
     popularity = popularity,
-    profilePath = profilePath,
+    profilePath = "${Constants.POSTER_PATH_URL}${this.profilePath}",
 )
 
 fun Crew.toDomainModel() = CrewDomain(
@@ -33,7 +34,7 @@ fun Crew.toDomainModel() = CrewDomain(
     name = name,
     originalName = originalName,
     popularity = popularity,
-    profilePath = profilePath,
+    profilePath = "${Constants.POSTER_PATH_URL}${this.profilePath}",
 )
 
 fun MovieCastModel.toDomainModel() = MovieCastModelDomain(

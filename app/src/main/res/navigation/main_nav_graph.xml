@@ -13,10 +13,18 @@
         <action
             android:id="@+id/action_home_destination_to_detail_destination"
             app:destination="@id/detail_destination" />
+        <action
+            android:id="@+id/action_home_destination_to_personScreenFragment"
+            app:destination="@id/person_destination" />
     </fragment>
     <fragment
         android:id="@+id/detail_destination"
         android:name="com.example.netfilxcloneapp.presentation.screens.detail.DetailScreenFragment"
         android:label="fragment_detail_screen"
         tools:layout="@layout/fragment_detail_screen" />
+    <fragment
+        android:id="@+id/person_destination"
+        android:name="com.example.netfilxcloneapp.presentation.screens.person.PersonScreenFragment"
+        android:label="fragment_person_screen"
+        tools:layout="@layout/fragment_person_screen" />
 </navigation>

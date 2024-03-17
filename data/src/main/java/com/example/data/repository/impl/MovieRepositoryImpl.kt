@@ -1,13 +1,13 @@
 package com.example.data.repository.impl
 
-import android.util.Log
 import com.example.data.mappers.toDomainModel
-import com.example.data.models.movie_details.MovieDetailModel
 import com.example.data.models.movie_list.MovieResponseCloudModel
+import com.example.data.models.person_models.PersonModels
 import com.example.data.remote.MovieService
 import com.example.domain.models.movie_details_domain.MovieDetailModelDomain
 import com.example.domain.models.movie_details_domain.movie_cast.MovieCastModelDomain
 import com.example.domain.models.movie_list_domain.MovieDomainModel
+import com.example.domain.models.person_models_domain.ResultDomain
 import com.example.domain.repository.MovieRepository
 import kotlinx.coroutines.CancellationException
 import retrofit2.Response
@@ -20,7 +20,8 @@ class MovieRepositoryImpl @Inject constructor(
         return try {
             val response = service.getCastForDetail(movieId)
             if (response.isSuccessful) {
-                val movieCastDetail = response.body()?.toDomainModel() ?: throw NullPointerException("Movie details are null")
+                val movieCastDetail = response.body()?.toDomainModel()
+                    ?: throw NullPointerException("Movie details are null")
                 Result.success(movieCastDetail)
             } else {
                 Result.failure(Throwable("Failed to fetch movie details"))
@@ -29,6 +30,10 @@ class MovieRepositoryImpl @Inject constructor(
             Result.failure(e)
         }
     }
+
+    override suspend fun fetchTopRatedMovie(page: Int): Result<List<MovieDomainModel>> =
+        sendRequestService(model = service.getTopRatedMovies(page = page))
+
 
     override suspend fun fetchPopularMovie(
         page: Int
@@ -43,19 +48,39 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun fetchNowPlayingMovie(
         page: Int
     ): Result<List<MovieDomainModel>> =
-        sendRequestService( model = service.getNowPlayingMovies(page = page))
+        sendRequestService(model = service.getNowPlayingMovies(page = page))
 
     override suspend fun fetchDetailMovie(movieId: Int): Result<MovieDetailModelDomain> {
         return try {
             val response = service.getMovieDetails(movieId)
             if (response.isSuccessful) {
-                val movieDetail = response.body()?.toDomainModel() ?: throw NullPointerException("Movie details are null")
+                val movieDetail = response.body()?.toDomainModel()
+                    ?: throw NullPointerException("Movie details are null")
                 Result.success(movieDetail)
             } else {
                 Result.failure(Throwable("Failed to fetch movie details"))
             }
         } catch (e: Exception) {
             Result.failure(e)
+        }
+    }
+
+    override suspend fun fetchPopularActors(page: Int): Result<List<ResultDomain>> =
+        sendRequestServicePerson(service.getPopularPerson(page = page))
+
+    private fun sendRequestServicePerson(model: Response<PersonModels>): Result<List<ResultDomain>> {
+        return try {
+            if (model.isSuccessful) {
+                return Result.success(
+                    model.body()?.results?.map {
+                        it.toDomainModel()
+                    }.orEmpty()
+                )
+            } else Result.failure(Throwable())
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            throw e
         }
     }
 

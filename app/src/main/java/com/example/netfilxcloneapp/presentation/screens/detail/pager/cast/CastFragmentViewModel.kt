@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.models.movie_details_domain.movie_cast.MovieCastModelDomain
 import com.example.domain.use_cases.details.cast_detail.FetchCastDetailsMovieUseCase
-import com.example.netfilxcloneapp.presentation.screens.detail.DetailScreenAction
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -35,8 +34,7 @@ class CastFragmentViewModel @Inject constructor(
             }
 
             val castDetails = castResponseDeffered.await()
-
-
+            Log.d("castDetail","$castDetails")
             if (castDetails.isSuccess){
                 _uiAction.emit(
                     CastAction.FetchCastDetail(

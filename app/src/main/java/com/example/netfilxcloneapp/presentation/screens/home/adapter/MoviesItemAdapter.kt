@@ -1,6 +1,6 @@
 package com.example.netfilxcloneapp.presentation.screens.home.adapter
 
-import android.view.LayoutInflater
+import  android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -43,7 +43,8 @@ class MoviesItemAdapter(
             when (itemTypes) {
                 MovieItemTypes.LATEST -> R.layout.movie_peeking_item
                 MovieItemTypes.TRENDING -> R.layout.movie_default_items
-
+                MovieItemTypes.TOP_RATED -> R.layout.movie_default_items
+                MovieItemTypes.UPCOMING -> R.layout.movie_default_items
             },
             parent,
             false

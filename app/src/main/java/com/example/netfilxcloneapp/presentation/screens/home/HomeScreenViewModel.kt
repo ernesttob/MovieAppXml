@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.use_cases.now_playing.FetchNowPlayingMovieUseCase
 import com.example.domain.use_cases.popular.FetchPopularMovieUseCase
+import com.example.domain.use_cases.top_rated.FetchTopRatedMovieUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
     private val fetchPopularMoviesUseCase: FetchPopularMovieUseCase,
-    private val fetchNowPlayingMoviesUseCase: FetchNowPlayingMovieUseCase
+    private val fetchNowPlayingMoviesUseCase: FetchNowPlayingMovieUseCase,
+    private val fetchTopRatedMovieUseCase: FetchTopRatedMovieUseCase
 ) : ViewModel() {
 
     private val _uiAction: MutableSharedFlow<HomeScreenAction> = MutableSharedFlow()
@@ -42,15 +44,20 @@ class HomeScreenViewModel @Inject constructor(
             val nowPLayingResponseDeferred = async {
                 fetchNowPlayingMoviesUseCase(page = 1)
             }
+            val topRatedResponseDeferred = async {
+                fetchTopRatedMovieUseCase(page = 1)
+            }
 
+            val topRatedMovies = topRatedResponseDeferred.await()
             val popularMovies = popularResponseDeferred.await()
             val nowPlayingMovies = nowPLayingResponseDeferred.await()
 
-            if (popularMovies.isSuccess && nowPlayingMovies.isSuccess) {
+            if (popularMovies.isSuccess && nowPlayingMovies.isSuccess && topRatedMovies.isSuccess) {
                 _uiAction.emit(
                     HomeScreenAction.FetchAllMovies(
                         popularMovies = popularMovies.getOrNull().orEmpty(),
-                        nowPlayingMovies = nowPlayingMovies.getOrNull().orEmpty()
+                        nowPlayingMovies = nowPlayingMovies.getOrNull().orEmpty(),
+                        topRatedMovies = topRatedMovies.getOrNull().orEmpty()
                     )
                 )
                 _uiAction.emit(HomeScreenAction.UpdateScreenHideShimmer)
