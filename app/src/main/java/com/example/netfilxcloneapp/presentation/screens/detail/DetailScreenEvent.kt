@@ -1,6 +1,6 @@
 package com.example.netfilxcloneapp.presentation.screens.detail
 
-interface DetailScreenEvent {
+sealed interface DetailScreenEvent {
 
     data object OnFetchDetailMovie: DetailScreenEvent
 

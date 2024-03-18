@@ -1,6 +1,7 @@
 package com.example.netfilxcloneapp.presentation.screens.home
 
 import android.os.Bundle
+import android.os.Message
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.domain.models.movie_list_domain.MovieDomainModel
 import com.example.netfilxcloneapp.R
 import com.example.netfilxcloneapp.databinding.FragmentHomeScreenBinding
 import com.example.netfilxcloneapp.presentation.screens.home.adapter.ItemOnClickListeners
@@ -19,6 +21,7 @@ import com.example.netfilxcloneapp.presentation.utils.gone
 import com.example.netfilxcloneapp.presentation.utils.hideBottomNavigation
 import com.example.netfilxcloneapp.presentation.utils.show
 import com.example.netfilxcloneapp.presentation.utils.showBottomNavigation
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -65,12 +68,23 @@ class HomeScreenFragment : Fragment(), ItemOnClickListeners {
                     is HomeScreenAction.UpdateScreenHideShimmer -> setupUiWhenUpdateScreenAction()
                     is HomeScreenAction.FetchAllMovies -> submitListAdapters(action)
                     is HomeScreenAction.NavigateToDetailsScreen -> navigateToDetailScreen(action)
+                    is HomeScreenAction.ShowSuccessSnackBar -> showSuccessSnackbar("Movie Saved Success")
                 }
             }
         }
     }
 
-    private fun navigateToDetailScreen(action: HomeScreenAction.NavigateToDetailsScreen){
+    private fun showSuccessSnackbar(
+        message: String
+    ) {
+        Snackbar.make(
+            binding.root,
+            message,
+            Snackbar.LENGTH_SHORT
+        ).show()
+    }
+
+    private fun navigateToDetailScreen(action: HomeScreenAction.NavigateToDetailsScreen) {
         findNavController().navigate(
             R.id.action_home_destination_to_detail_destination,
             bundleOf(DETAIL_ID_ARG to action.movieId)
@@ -112,6 +126,11 @@ class HomeScreenFragment : Fragment(), ItemOnClickListeners {
     override fun onMovieItemClick(movieId: Int) {
         viewModel.onEvent(HomeScreenEvent.OnNavigateToDetails(movieId))
     }
+
+    override fun onMovieLongClick(movieDomainModel: MovieDomainModel) {
+        viewModel.onEvent(HomeScreenEvent.OnSaveMovieToCache(movieDomainModel))
+    }
+
     companion object {
         const val DETAIL_ID_ARG = "DETAIL_ID_ARG"
     }

@@ -5,6 +5,7 @@ object Constants {
     const val API_KEY = "3249dba9ba8a81c53f42a124fe89e8e5"
     const val POSTER_PATH_URL = "https://image.tmdb.org/t/p/original/"
     const val LANGUAGE_RU = "ru"
+    const val API = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MTExYzhlZjZkM2NlYWVmYjU3N2I3NmUzZWZjMjY4MCIsInN1YiI6IjY1YmNkZTI5Y2ZmZWVkMDE3Y2FmYmRjNSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dH9lUXh9oxnd6gB8pGn9hsq4_hUE7dLUWauehXZi4hg"
     const val LANGUAGE_EN = "en"
     const val YOUTUBE_URL = "https://www.youtube.com/watch?v="
 

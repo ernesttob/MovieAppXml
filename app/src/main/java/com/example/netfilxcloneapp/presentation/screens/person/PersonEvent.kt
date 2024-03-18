@@ -1,6 +1,6 @@
 package com.example.netfilxcloneapp.presentation.screens.person
 
-interface PersonEvent {
+sealed interface PersonEvent {
 
     data object OnFetchPopularPerson: PersonEvent
 

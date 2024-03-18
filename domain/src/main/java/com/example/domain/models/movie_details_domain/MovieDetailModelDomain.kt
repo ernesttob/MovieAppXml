@@ -1,5 +1,7 @@
 package com.example.domain.models.movie_details_domain
 
+import android.os.Parcel
+import android.os.Parcelable
 import java.io.Serializable
 
 
@@ -28,7 +30,7 @@ data class MovieDetailModelDomain(
     val video: Boolean,
     val voteAverage: Double,
     val voteCount: Int
-) : Serializable {
+) : Serializable, Parcelable {
     companion object {
         val unknown = MovieDetailModelDomain(
             adult = false,
@@ -56,5 +58,13 @@ data class MovieDetailModelDomain(
             voteAverage = 0.0,
             voteCount = 0,
         )
+    }
+
+    override fun describeContents(): Int {
+        TODO("Not yet implemented")
+    }
+
+    override fun writeToParcel(dest: Parcel, flags: Int) {
+        TODO("Not yet implemented")
     }
 }

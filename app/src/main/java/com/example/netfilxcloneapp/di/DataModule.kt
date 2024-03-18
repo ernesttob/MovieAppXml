@@ -1,5 +1,8 @@
 package com.example.netfilxcloneapp.di
 
+import com.example.data.locale.MoviesDao
+import com.example.data.locale.data.source.MovieCacheDataSource
+import com.example.data.locale.data.source.MovieCacheDataSourceImpl
 import com.example.data.remote.MovieService
 import com.example.data.repository.impl.MovieRepositoryImpl
 import com.example.data.utils.Constants.API_KEY
@@ -21,9 +24,15 @@ import javax.inject.Singleton
 class DataModule {
 
     @Provides
+    fun provideMovieCacheDataSource(
+        moviesDao: MoviesDao
+    ):MovieCacheDataSource = MovieCacheDataSourceImpl(moviesDao)
+
+    @Provides
     fun provideMovieRepository(
-        movieService: MovieService
-    ): MovieRepository = MovieRepositoryImpl(movieService)
+        movieService: MovieService,
+        movieCacheDataSource: MovieCacheDataSource
+    ): MovieRepository = MovieRepositoryImpl(movieService, movieCacheDataSource)
 
 
 }

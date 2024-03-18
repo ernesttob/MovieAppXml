@@ -42,6 +42,17 @@ android {
 
 dependencies {
 
+    //Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-guava:2.6.1")
+    implementation("com.google.firebase:firebase-crashlytics-buildtools:2.9.9")
+    implementation("androidx.wear.compose:compose-material:1.3.0")
+    implementation("com.android.car.ui:car-ui-lib:2.6.0")
+    testImplementation("androidx.room:room-testing:2.6.1")
+    implementation("androidx.room:room-paging:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
+
     //Pager2
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
 

@@ -12,12 +12,14 @@ import com.example.data.utils.Constants.Movie.MOVIE_DETAILS
 import com.example.data.utils.Constants.Movie.NOW_PLAYING
 import com.example.data.utils.Constants.Movie.POPULAR
 import com.example.data.utils.Constants.Movie.RECOMMENDATIONS
+import com.example.data.utils.Constants.Movie.SEARCH_MOVIE
 import com.example.data.utils.Constants.Movie.SIMILAR
 import com.example.data.utils.Constants.Movie.TOP_RATED
 import com.example.data.utils.Constants.Movie.UPCOMING
 import com.example.data.utils.Constants.Person.PERSON_POPULAR
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -72,4 +74,10 @@ interface MovieService {
         @Query("language") language: String = LANGUAGE_EN,
         @Query("page") page: Int?,
     ): Response<PersonModels>
+
+    @GET(SEARCH_MOVIE)
+    suspend fun searchMoviesByQuery(
+        @Header("Authorization") apiKey: String,
+        @Query("query") movieTitle:String,
+    ): Response<MovieResponseCloudModel>
 }

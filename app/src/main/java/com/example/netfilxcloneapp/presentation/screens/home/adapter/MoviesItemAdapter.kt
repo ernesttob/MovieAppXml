@@ -3,7 +3,9 @@ package com.example.netfilxcloneapp.presentation.screens.home.adapter
 import  android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
@@ -12,6 +14,8 @@ import com.example.netfilxcloneapp.R
 
 interface ItemOnClickListeners {
     fun onMovieItemClick(movieId: Int)
+
+    fun onMovieLongClick(movieDomainModel: MovieDomainModel)
 }
 
 class MoviesItemAdapter(
@@ -35,6 +39,11 @@ class MoviesItemAdapter(
             moviePoster.setOnClickListener{
                 itemsOnClickListeners.onMovieItemClick(model.id ?:0)
             }
+
+            moviePoster.setOnLongClickListener {
+                itemsOnClickListeners.onMovieLongClick(model)
+                true
+            }
         }
     }
 
@@ -45,6 +54,7 @@ class MoviesItemAdapter(
                 MovieItemTypes.TRENDING -> R.layout.movie_default_items
                 MovieItemTypes.TOP_RATED -> R.layout.movie_default_items
                 MovieItemTypes.UPCOMING -> R.layout.movie_default_items
+                MovieItemTypes.FAVORITES -> R.layout.favorites_items
             },
             parent,
             false

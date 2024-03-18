@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">NetfilxCloneApp</string>
     <string name="home_txt">Home</string>
-    <string name="categories_txt">Categories</string>
+    <string name="categories_txt">Search</string>
     <string name="actors_txt">Actors</string>
     <string name="favorite_txt">Favorite</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -14,4 +14,9 @@
     <string name="cast">Cast</string>
     <string name="More">More</string>
     <string name="popular_actors_today">Popular Actors Today</string>
+    <string name="no_trailer_txt">No Trailer!</string>
+    <string name="release_date">Release Date:</string>
+    <string name="vote_average">Vote Average:</string>
+    <string name="runtime">Runtime:</string>
+    <string name="favorite_movies">Favorite Movies</string>
 </resources>

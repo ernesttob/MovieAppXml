@@ -1,5 +1,5 @@
 package com.example.netfilxcloneapp.presentation.screens.detail.pager.cast
 
-interface CastEvent {
+sealed interface CastEvent {
     data object OnFetchCastDetails:CastEvent
 }

@@ -6,11 +6,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.example.data.models.movie_details.MovieDetailModel
+import com.example.domain.models.movie_details_domain.MovieDetailModelDomain
+import com.example.netfilxcloneapp.R
 import com.example.netfilxcloneapp.databinding.FragmentCastDetailBinding
 import com.example.netfilxcloneapp.databinding.FragmentDetailScreenBinding
 import com.example.netfilxcloneapp.databinding.FragmentMoreDetailBinding
@@ -32,6 +36,10 @@ class DetailScreenFragment : Fragment() {
 
     private val binding: FragmentDetailScreenBinding by lazy {
         FragmentDetailScreenBinding.inflate(layoutInflater)
+    }
+
+    private val bindingMore: FragmentMoreDetailBinding by lazy {
+        FragmentMoreDetailBinding.inflate(layoutInflater)
     }
 
     private val viewModel: DetailScreenViewModel by viewModels()
@@ -68,7 +76,6 @@ class DetailScreenFragment : Fragment() {
         }
     }
 
-    @SuppressLint("ResourceAsColor")
     private fun fetchDetailMovie(action: FetchDetailMovie) {
         Glide
             .with(requireContext())
@@ -77,6 +84,9 @@ class DetailScreenFragment : Fragment() {
         binding.moviePosterForDetail.layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT
         binding.title.text = action.detailMovie.title
         binding.movieDescription.text = action.detailMovie.overview
+        bindingMore.releaseDateTv.text = action.detailMovie.releaseDate
+        bindingMore.voteAverageTv.text = action.detailMovie.voteAverage.toString()
+        bindingMore.runtimeTv.text = action.detailMovie.runtime.toString()
     }
 
     private fun horizontalPager(movieId: Int?) {

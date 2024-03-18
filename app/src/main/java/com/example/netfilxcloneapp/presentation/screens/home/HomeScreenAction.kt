@@ -17,4 +17,6 @@ sealed interface HomeScreenAction {
 
     data object UpdateScreenHideShimmer: HomeScreenAction
 
+    data object ShowSuccessSnackBar: HomeScreenAction
+
 }

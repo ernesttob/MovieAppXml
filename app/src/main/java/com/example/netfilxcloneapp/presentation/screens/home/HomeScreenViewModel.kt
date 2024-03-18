@@ -2,6 +2,7 @@ package com.example.netfilxcloneapp.presentation.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.use_cases.locale.save.SaveMovieToCacheUseCase
 import com.example.domain.use_cases.now_playing.FetchNowPlayingMovieUseCase
 import com.example.domain.use_cases.popular.FetchPopularMovieUseCase
 import com.example.domain.use_cases.top_rated.FetchTopRatedMovieUseCase
@@ -19,7 +20,8 @@ class HomeScreenViewModel @Inject constructor(
     private val fetchPopularMoviesUseCase: FetchPopularMovieUseCase,
     private val fetchNowPlayingMoviesUseCase: FetchNowPlayingMovieUseCase,
     private val fetchTopRatedMovieUseCase: FetchTopRatedMovieUseCase,
-    private val fetchUpcomingMoviesUseCase: FetchUpcomingMoviesUseCase
+    private val fetchUpcomingMoviesUseCase: FetchUpcomingMoviesUseCase,
+    private val saveMovieToCacheUseCase: SaveMovieToCacheUseCase
 ) : ViewModel() {
 
     private val _uiAction: MutableSharedFlow<HomeScreenAction> = MutableSharedFlow()
@@ -29,6 +31,14 @@ class HomeScreenViewModel @Inject constructor(
         when (event) {
             is HomeScreenEvent.OnFetchAllMovies -> onFetchAllMovies()
             is HomeScreenEvent.OnNavigateToDetails -> onNavigateToDetailsScreen(event)
+            is HomeScreenEvent.OnSaveMovieToCache -> onSaveMovieToCache(event)
+        }
+    }
+
+    private fun onSaveMovieToCache(event: HomeScreenEvent.OnSaveMovieToCache){
+        viewModelScope.launch {
+            saveMovieToCacheUseCase(event.movie)
+            _uiAction.emit(HomeScreenAction.ShowSuccessSnackBar)
         }
     }
 
